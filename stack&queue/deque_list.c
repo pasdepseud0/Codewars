@@ -10,11 +10,13 @@
 
 typedef struct node {
   int data;
-  struct node *prev, *next;
+  struct node *prev;
+  struct node *next;
 } node_t;
 
 typedef struct deque {
-  node_t *front, *back;
+  node_t *first;
+  node_t *last;
 } deque_t;
 
 void link_two_nodes(node_t *prev, node_t *next)
@@ -68,56 +70,56 @@ node_t *free_node(node_t *node)
 void deque_add_node(deque_t *deque, node_t *prev, int data, node_t *next)
 {
   node_t *added = link_three_nodes(prev, make_node(data), next);
-  if (next == deque->front) {
-    deque->front = added;
+  if (next == deque->first) {
+    deque->first = added;
     }
-  if (prev == deque->back) {
-    deque->back = added;
+  if (prev == deque->last) {
+    deque->last = added;
     }
 }
 
 int deque_remove_node(deque_t *deque, node_t *remove)
 {
-  if (remove == deque->back) {
-    deque->back = remove->prev;
+  if (remove == deque->last) {
+    deque->last = remove->prev;
     }
-  if (remove == deque->front) {
-    deque->front = remove->next;
+  if (remove == deque->first) {
+    deque->first = remove->next;
     }
   return free_node(unlink_node(remove));
 }
 
-void deque_push_front(deque_t *deque, int data)
+void deque_push_first(deque_t *deque, int data)
 {
-  deque_add_node(deque, NULL, data, deque->front);
+  deque_add_node(deque, NULL, data, deque->first);
 }
 
-int deque_pop_front(deque_t *deque)
+int deque_pop_first(deque_t *deque)
 {
-  return deque_remove_node(deque, deque->front);
+  return deque_remove_node(deque, deque->first);
 }
 
-int deque_peek_front(const deque_t *deque)
+int deque_peek_first(const deque_t *deque)
 {
-  return deque->front->data;
+  return deque->first->data;
 }
 
-void deque_push_back(deque_t *deque, int data)
+void deque_push_last(deque_t *deque, int data)
 {
-  deque_add_node(deque, deque->back, data, NULL);
+  deque_add_node(deque, deque->last, data, NULL);
 }
 
-int deque_pop_back(deque_t *deque)
+int deque_pop_last(deque_t *deque)
 {
-  return deque_remove_node(deque, deque->back);
+  return deque_remove_node(deque, deque->last);
 }
 
-int deque_peek_back(const deque_t *deque)
+int deque_peek_last(const deque_t *deque)
 {
-  return deque->back->data;
+  return deque->last->data;
 }
 
 bool deque_is_empty(const deque_t *deque)
 {
-  return !deque->front && !deque->back;
+  return !deque->first && !deque->last;
 }
