@@ -1,3 +1,10 @@
+/*
+** CODEWARS PROJECT, 2024
+** find_x.c
+** Author:
+** pasdepseudo
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
