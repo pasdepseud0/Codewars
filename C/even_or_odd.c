@@ -1,6 +1,6 @@
 /*
 ** CODEWARS PROJECT, 2023
-** same_case.c
+** even_or_odd.c
 ** Author:
 ** pasdepseudo
 */
